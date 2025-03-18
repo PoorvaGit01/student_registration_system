@@ -7,3 +7,17 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+AdminUser.find_or_create_by(email: 'demoadmin_1@yopmail.com') do |admin|
+  admin.password = 'password'
+  admin.password_confirmation = 'password'
+end
+
+Student.find_or_create_by(email: 'demostudent_1@yopmail.com') do |student|
+  student.password ='password',  
+  student.password_confirmation = 'password'
+  student.name= 'Demo Student 1',
+  student.dob = '1990-01-01',
+  student.address = 'Demo Address 1'
+  student.verified = true
+end
+                  

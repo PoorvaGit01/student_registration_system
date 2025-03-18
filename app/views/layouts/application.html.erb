@@ -7,10 +7,24 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+ 
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
+    <% if student_signed_in? %>
+      <div class="d-flex justify-content-end align-items-center"> 
+        <span><%= current_student.email %></span>
+        <%= button_to 'Sign Out', destroy_student_session_path, method: :delete, class: 'btn btn-danger ml-2' %>
+      </div>
+    <%else%>
+      <div style="text-align: right; margin-bottom: 20px;">
+        <%= link_to 'Sign In', new_student_session_path, class: 'btn btn-primary' %>
+      </div>    
+    <%end%>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
     <%= yield %>
   </body>
 </html>

@@ -65,3 +65,23 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+# gem 'devise', '~> 4.9' # For authentication
+# gem 'activeadmin', '~> 2.13' # For admin interface
+# gem 'cancancan', '~> 3.5' # For authorization
+# gem 'paperclip', '~> 6.1' # For file uploads (or use Active Storage)
+# gem 'sidekiq', '~> 6.5' # For background jobs
+gem 'rails-i18n', '~> 7.0' # For internationalization (optional)
+gem 'figaro', '~> 1.2' # For managing environment variables
+gem 'whenever', '~> 1.0' # For cron jobs
+
+gem 'activeadmin'
+gem 'sass-rails'
+
+# Plus integrations with:
+gem 'devise', '~> 4.9'
+gem 'cancancan'
+gem 'draper'
+gem 'pundit'
+gem 'sidekiq'
+gem 'active_storage_validations'

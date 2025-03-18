@@ -1,0 +1,21 @@
+<!-- filepath: /home/developer/student_registration_system/app/views/student_mailer/registration_confirmation.html.erb -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Registration Confirmation</title>
+  </head>
+  <body>
+    <h1>Registration Confirmation</h1>
+    <p>Dear <%= @student.name %>,</p>
+    <p>We are pleased to inform you that your account has been successfully created.</p>
+    <p>You can now log in using the following credentials:</p>
+    <p>Email: <%= @student.email %></p>
+    <p>Password: <%= @student.password %></p>
+    <p>Please make sure to change your password after logging in for the first time.</p>
+    <p>If you have any questions or need further assistance, please feel free to contact us.</p>
+    <p>Thank you for being a part of our community!</p>
+    <p>Best regards,</p>
+    <p>The Student Registration System Team</p>
+  </body>
+</html>

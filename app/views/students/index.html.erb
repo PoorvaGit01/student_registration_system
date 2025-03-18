@@ -1,0 +1,28 @@
+<h1>Students</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>DOB</th>
+      <th>Address</th>
+      <th>Verified</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @students.each do |student| %>
+      <tr>
+        <td><%= student.name %></td>
+        <td><%= student.email %></td>
+        <td><%= student.dob %></td>
+        <td><%= student.address %></td>
+        <td><%= student.verified ? 'Yes' : 'No' %></td>
+        <td>
+          <%= link_to 'view', student_path(student) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
