@@ -1,66 +1,115 @@
-<!-- filepath: /home/developer/student_registration_system/app/views/students/registrations/new.html.erb -->
-<h2>Student Sign up</h2>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h2 class="text-center mb-0">Student Sign Up</h2>
+        </div>
+        <div class="card-body">
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { multipart: true, class: "form-horizontal" }) do |f| %>
+            <%= render "devise/shared/error_messages", resource: resource %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { multipart: true, class: "form-horizontal" }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+            <!-- Name Field -->
+            <div class="form-group row">
+              <div class="col-12 col-sm-3 text-sm-right">
+                <%= f.label :name, class: "col-form-label", style: "max-width: 100%; display: inline-block;" %>
+              </div>
+              <div class="col-12 col-sm-9">
+                <div class="field_with_errors">
+                  <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "form-control", placeholder: "Enter your full name" %>
+                </div>
+              </div>
+            </div>
 
-  <div class="form-group">
-    <%= f.label :name, class: "control-label col-sm-2" %>
-    <div class="col-sm-10">
-      <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "form-control" %>
+            <!-- Date of Birth Field -->
+            <div class="form-group row">
+              <div class="col-12 col-sm-3 text-sm-right">
+                <%= f.label :dob, class: "col-form-label", style: "max-width: 100%; display: inline-block;" %>
+              </div>
+              <div class="col-12 col-sm-9">
+                <div class="field_with_errors">
+                  <%= f.date_field :dob, autocomplete: "dob", class: "form-control" %>
+                </div>
+              </div>
+            </div>
+
+            <!-- Address Field -->
+            <div class="form-group row">
+              <div class="col-12 col-sm-3 text-sm-right">
+                <%= f.label :address, class: "col-form-label", style: "max-width: 100%; display: inline-block;" %>
+              </div>
+              <div class="col-12 col-sm-9">
+                <div class="field_with_errors">
+                  <%= f.text_area :address, autocomplete: "address", class: "form-control", placeholder: "Enter your address", rows: 3 %>
+                </div>
+              </div>
+            </div>
+
+            <!-- Email Field -->
+            <div class="form-group row">
+              <div class="col-12 col-sm-3 text-sm-right">
+                <%= f.label :email, class: "col-form-label", style: "max-width: 100%; display: inline-block;" %>
+              </div>
+              <div class="col-12 col-sm-9">
+                <div class="field_with_errors">
+                  <%= f.email_field :email, autocomplete: "email", class: "form-control", placeholder: "Enter your email" %>
+                </div>
+              </div>
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group row">
+              <div class="col-12 col-sm-3 text-sm-right">
+                <%= f.label :password, class: "col-form-label", style: "max-width: 100%; display: inline-block;" %>
+              </div>
+              <div class="col-12 col-sm-9">
+                <div class="field_with_errors">
+                  <%= f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: "Enter your password" %>
+                </div>
+                <% if @minimum_password_length %>
+                  <small class="form-text text-muted">(<%= @minimum_password_length %> characters minimum)</small>
+                <% end %>
+              </div>
+            </div>
+
+            <!-- Password Confirmation Field -->
+            <div class="form-group row">
+              <div class="col-12 col-sm-3 text-sm-right">
+                <%= f.label :password_confirmation, class: "col-form-label", style: "max-width: 100%; display: inline-block;" %>
+              </div>
+              <div class="col-12 col-sm-9">
+                <div class="field_with_errors">
+                  <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder: "Confirm your password" %>
+                </div>
+              </div>
+            </div>
+
+            <!-- Photo Field -->
+            <div class="form-group row">
+              <div class="col-12 col-sm-3 text-sm-right">
+                <%= f.label :photo, class: "col-form-label", style: "max-width: 100%; display: inline-block;" %>
+              </div>
+              <div class="col-12 col-sm-9">
+                <div class="field_with_errors">
+                  <%= f.file_field :photo, class: "form-control-file" %>
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-group row">
+              <div class="col-12 col-sm-9 offset-sm-3">
+                <%= f.submit "Sign up", class: "btn btn-primary" %>
+              </div>
+            </div>
+          <% end %>
+
+          <!-- Shared Links -->
+          <div class="text-center mt-3">
+            <%= render "devise/shared/links" %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-
-  <div class="form-group">
-    <%= f.label :dob, class: "control-label col-sm-2" %>
-    <div class="col-sm-10">
-      <%= f.date_field :dob, autocomplete: "dob", class: "form-control" %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :address, class: "control-label col-sm-2" %>
-    <div class="col-sm-10">
-      <%= f.text_area :address, autocomplete: "address", class: "form-control" %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :email, class: "control-label col-sm-2" %>
-    <div class="col-sm-10">
-      <%= f.email_field :email, autocomplete: "email", class: "form-control" %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :password, class: "control-label col-sm-2" %>
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %>
-    <div class="col-sm-10">
-      <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :password_confirmation, class: "control-label col-sm-2" %>
-    <div class="col-sm-10">
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :photo, class: "control-label col-sm-2" %>
-    <div class="col-sm-10">
-      <%= f.file_field :photo, class: "form-control" %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <%= f.submit "Sign up", class: "btn btn-primary" %>
-    </div>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

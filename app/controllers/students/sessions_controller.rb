@@ -11,8 +11,11 @@ class Students::SessionsController < Devise::SessionsController
   # POST /resource/sign_in
   def create
     student = Student.find_by(email: params[:student][:email])
-    return redirect_to new_student_session_path, notice: 'Admin will verify your details soon' unless student&.verified?
-    super
+    if student && !student.verified?
+      redirect_to new_student_session_path, notice: 'Admin will verify your details soon'
+    else
+      super
+    end
   end
 
   # DELETE /resource/sign_out

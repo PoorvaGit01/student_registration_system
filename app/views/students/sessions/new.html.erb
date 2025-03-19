@@ -1,0 +1,65 @@
+<!-- filepath: app/views/students/sessions/new.html.erb -->
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h2 class="text-center mb-0">Log in</h2>
+        </div>
+        <div class="card-body">
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "form-horizontal" }) do |f| %>
+            <%= render "devise/shared/error_messages", resource: resource %>
+
+            <!-- Email Field -->
+            <div class="form-group row">
+              <div class="col-12 col-sm-3 text-sm-right">
+                <%= f.label :email, class: "col-form-label", style: "max-width: 100%; display: inline-block;" %>
+              </div>
+              <div class="col-12 col-sm-9">
+                <div class="field_with_errors">
+                  <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Enter your email" %>
+                </div>
+              </div>
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group row">
+              <div class="col-12 col-sm-3 text-sm-right">
+                <%= f.label :password, class: "col-form-label", style: "max-width: 100%; display: inline-block;" %>
+              </div>
+              <div class="col-12 col-sm-9">
+                <div class="field_with_errors">
+                  <%= f.password_field :password, autocomplete: "current-password", class: "form-control", placeholder: "Enter your password" %>
+                </div>
+              </div>
+            </div>
+
+            <!-- Remember Me Checkbox -->
+            <% if devise_mapping.rememberable? %>
+              <div class="form-group row">
+                <div class="col-12 col-sm-9 offset-sm-3">
+                  <div class="form-check">
+                    <%= f.check_box :remember_me, class: "form-check-input" %>
+                    <%= f.label :remember_me, class: "form-check-label" %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+
+            <!-- Submit Button -->
+            <div class="form-group row">
+              <div class="col-12 col-sm-9 offset-sm-3">
+                <%= f.submit "Log in", class: "btn btn-primary" %>
+              </div>
+            </div>
+          <% end %>
+
+          <!-- Shared Links -->
+          <div class="text-center mt-3">
+            <%= render "students/shared/links" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
