@@ -58,7 +58,7 @@ class Student < ApplicationRecord
   end
 
   def send_registration_email
-    RegistrationEmailWorker.perform_async(self.id)
+    RegistrationEmailWorker.perform_at(Time.now, self.id, self.password)
   end
 
   def send_email_to_admin

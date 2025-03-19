@@ -4,8 +4,8 @@ require 'sidekiq'
 class RegistrationEmailWorker
   include Sidekiq::Worker
 
-  def perform(student_id)
+  def perform(student_id, st_password)
     student = Student.find(student_id)
-    StudentMailer.registration_confirmation(student).deliver_now
+    StudentMailer.registration_confirmation(student, st_password).deliver_now
   end
 end

@@ -1,6 +1,7 @@
 class StudentMailer < ApplicationMailer
-  def registration_confirmation(student)
+  def registration_confirmation(student, st_password)
     @student = student
+    @st_password = st_password
     mail(to: @student.email, subject: 'Registration Confirmation')
   end
 
