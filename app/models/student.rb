@@ -5,13 +5,17 @@ class Student < ApplicationRecord
 
   has_one_attached :photo
 
+  validate :photo_format
+
+  
+
   validates :name, presence: true
-  validates :email, presence: true, uniqueness: true
+  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :dob, presence: true
   validates :address, presence: true
   validates :password, presence: true, length: {
-    minimum: 5
-  }, if: :password
+    minimum: 6
+  }, if: -> { password.present? }
 
   enum status: { pending: 0, accepted: 1, rejected: 2 }
 
@@ -59,6 +63,21 @@ class Student < ApplicationRecord
 
   def send_email_to_admin
     AdminNotificationWorker.perform_async(self.id)
+  end
+
+  private
+
+  def photo_format
+    return unless photo.attached?
+
+    if photo.blob.content_type.start_with?('image/')
+      acceptable_types = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']
+      unless acceptable_types.include?(photo.blob.content_type)
+        errors.add(:photo, 'must be a JPEG, JPG, PNG, or GIF')
+      end
+    else
+      errors.add(:photo, 'must be an image')
+    end
   end
 
 end

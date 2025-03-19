@@ -105,7 +105,7 @@ ActiveAdmin.register Student do
       row :email
       row :dob
       row :photo do |student|
-        image_tag student.photo, size: "100x100"
+        image_tag student.photo, size: "100x100" if student.photo.attached?
       end
       row :address
       row :verified

@@ -8,23 +8,43 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
- 
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <% if student_signed_in? %>
-      <div class="d-flex justify-content-end align-items-center"> 
-        <span><%= current_student.email %></span>
-        <%= button_to 'Sign Out', destroy_student_session_path, method: :delete, class: 'btn btn-danger ml-2' %>
-      </div>
-    <%else%>
-      <div style="text-align: right; margin-bottom: 20px;">
-        <%= link_to 'Sign In', new_student_session_path, class: 'btn btn-primary' %>
-      </div>    
-    <%end%>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
+    <div class="container-fluid">
+      <% if student_signed_in? %>
+        <div class="d-flex justify-content-end align-items-center p-3">
+          <span class="mr-2"><%= current_student.email %></span>
+          <%= button_to 'Sign Out', destroy_student_session_path, method: :delete, class: 'btn btn-danger' %>
+        </div>
+      <% end %>
+
+      <!-- Flash Messages -->
+      <% if flash[:alert] %>
+        <div class="alert alert-danger alert-dismissible fade show mx-3" role="alert">
+          <%= flash[:alert] %>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <% end %>
+
+      <% if flash[:notice] %>
+        <div class="alert alert-success alert-dismissible fade show mx-3" role="alert">
+          <%= flash[:notice] %>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <% end %>
+
+      <%= yield %>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </body>
 </html>
