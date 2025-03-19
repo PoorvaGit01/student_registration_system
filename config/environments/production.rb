@@ -69,6 +69,7 @@ Rails.application.configure do
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter = :resque
+  config.active_job.queue_adapter = :sidekiq
   # config.active_job.queue_name_prefix = "student_registration_system_production"
 
   config.action_mailer.perform_caching = false
@@ -94,4 +95,13 @@ Rails.application.configure do
   # ]
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              "smtp.gmail.com",
+    port:                  587,
+    user_name:             ENV['GMAIL_USERNAME'],
+    password:              ENV['GMAIL_PASSWORD'],
+    authentication:        "plain",
+  }
 end

@@ -13,7 +13,7 @@ ActiveAdmin.register Student do
   member_action :verify, method: :put do
     student = Student.find(params[:id])
     student.update(verified: true)
-    StudentMailer.verification_confirmation(student).deliver_now
+    VerificationEmailWorker.perform_async(student.id)
     redirect_to admin_student_path(student), notice: "Student verified successfully!"
   end
 

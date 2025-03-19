@@ -19,11 +19,11 @@ class Student < ApplicationRecord
   after_create :send_email_to_admin, unless: :verified?
 
   def send_registration_email
-    StudentMailer.registration_confirmation(self).deliver_now
+    RegistrationEmailWorker.perform_async(self.id)
   end
 
   def send_email_to_admin
-    AdminMailer.new_student_registration(self).deliver_now
+    AdminNotificationWorker.perform_async(self.id)
   end
 
 end
