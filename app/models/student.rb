@@ -18,6 +18,41 @@ class Student < ApplicationRecord
   after_create :send_registration_email
   after_create :send_email_to_admin, unless: :verified?
 
+
+  def self.import_from_csv(file_path)
+    errors = []
+    ActiveRecord::Base.transaction do
+      CSV.foreach(file_path, headers: true).with_index(1) do |row, line_number|
+        student = Student.new(email: row['email'])
+        student.assign_attributes(
+          name: row['name'],
+          dob: row['dob'],
+          address: row['address'],
+          verified: row['verified'] == 'true',
+          password: row['password'] || SecureRandom.hex(8)
+        )
+  
+        unless student.save
+          unique_errors = student.errors.full_messages.uniq
+          errors << "Line #{line_number}: #{student.email} - #{unique_errors.join(', ')}"
+        end
+      end
+      if errors.present?
+        raise ActiveRecord::Rollback # Rollback the transaction if any record fails
+      end
+    end
+    errors
+  end
+
+  def self.to_csv
+    CSV.generate do |csv|
+      csv << %w[name dob email address verified]
+      all.each do |student|
+        csv << [student.name, student.dob, student.email, student.address, student.verified]
+      end
+    end
+  end
+
   def send_registration_email
     RegistrationEmailWorker.perform_async(self.id)
   end

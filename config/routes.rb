@@ -2,6 +2,16 @@ require "sidekiq/web"
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
+  namespace :admin do
+    resources :students do
+      collection do
+        get :new_import
+        post :import
+      end
+    end
+  end
+
   devise_for :students, controllers: {
     registrations: 'students/registrations',
     sessions: 'students/sessions'

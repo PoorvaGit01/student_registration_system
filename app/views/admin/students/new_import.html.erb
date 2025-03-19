@@ -1,0 +1,14 @@
+<h1>Bulk Import Students</h1>
+
+<%= form_tag import_admin_students_path, multipart: true do %>
+  <div class="field">
+    <%= label_tag :file, 'Upload CSV File' %>
+    <%= file_field_tag :file, required: true %>
+    <%= link_to 'Download Sample CSV', sample_csv_admin_students_path, class: 'download-categories-sample-file' %></div>
+
+  <div class="actions">
+    <%= submit_tag 'Import' %>
+  </div>
+<% end %>
+
+<%= link_to 'Back to Students', admin_students_path %>

@@ -1,9 +1,9 @@
 send_good_morning_emails:
-  cron: "0 7 * * *"
+  cron: "0 7 * * *" # 7am every day
   class: "GoodMorningEmailJob"
   queue: default
 
 send_birthday_emails:
-  cron: "0 7 * * *"
+  cron: "0 7 * * *" # 7am every day
   class: "BirthdayEmailJob"
   queue: default
