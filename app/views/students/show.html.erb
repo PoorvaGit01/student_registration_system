@@ -1,29 +1,47 @@
-<!-- filepath: /home/developer/student_registration_system/app/views/students/show.html.erb -->
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Student Details</title>
-  </head>
-  <body>
-    <div class="container">
-      <h1 class="my-4">Student Details</h1>
+<div class="container mt-3">
 
-      <div class="card">
-        <div class="card-body">
-          <p class="card-text"><strong>Name:</strong> <%= @student.name %></p>
-          <p class="card-text"><strong>Email:</strong> <%= @student.email %></p>
-          <p class="card-text"><strong>Date of Birth:</strong> <%= @student.dob %></p>
-          <p class="card-text"><strong>Address:</strong> <%= @student.address %></p>
-          <p class="card-text"><strong>Verified:</strong> <%= @student.verified ? "Yes" : "No" %></p>
-          <% if @student.photo.attached? %>
-            <p class="card-text"><strong>Photo:</strong></p>
-            <%= image_tag @student.photo, size: "200x200", class: 'img-fluid' %>
-          <% end %>
-        </div>
+  <div class="card p-4 shadow">
+    <div class="d-flex align-items-center">
+      
+      <% if @student.photo.attached? %>
+        <%= image_tag @student.photo, class: "rounded-circle me-2 border border-2 border-dark", height: 40, width: 40, alt: "Student Photo" %>
+      <%else%>
+        <%= image_tag "profile.jpeg", class: "rounded-circle me-2 border border-2 border-dark", height: 40, width: 40, alt: "Student Photo" %>
+      <% end %>
+
+      <div>
+        <span class="fw-bold mx-2"><%= @student.name %></span>
+        <span class="text-muted">Last updated <%= time_ago_in_words(@student.updated_at) %> ago</span>
       </div>
 
-      <%= link_to 'Back', root_path, class: 'btn btn-secondary mt-3' %>
     </div>
-  </body>
-</html>
+
+    <!-- Additional Student Details -->
+    <hr>
+
+    <div class="mt-2">
+      <strong>Email:</strong> <%= @student.email %>
+    </div>
+
+    <div class="mt-2">
+      <strong>Date of Birth:</strong> <%= @student.dob.strftime("%B %d, %Y") if @student.dob.present? %>
+    </div>
+
+    <div class="mt-2">
+      <strong>Address:</strong> <%= @student.address.presence || "Not provided" %>
+    </div>
+
+    <div class="mt-2">
+      <strong>Verified:</strong>
+      <span class="badge <%= @student.verified ? 'bg-success' : 'bg-danger' %>">
+        <%= @student.verified ? "Yes" : "No" %>
+      </span>
+    </div>
+
+    <!-- Back Button -->
+    <div class="mt-3">
+      <%= link_to 'Back', main_app.root_path, class: "btn btn-outline-secondary" %>
+    </div>
+
+  </div>
+</div>
